@@ -22,7 +22,7 @@ const EmailSection = () => {
         method: "POST",
         mode: "no-cors", // 添加 no-cors 模式
         headers: {
-          Authorization: "Bearer re_GMgm68AB_44n3VMvKH7WpKXCg2uSddqCZ",
+          "Authorization": "Bearer re_GMgm68AB_44n3VMvKH7WpKXCg2uSddqCZ",
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
