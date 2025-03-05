@@ -5,7 +5,7 @@ import LinkedinIcon from "../../../public/linkedin-icon.svg";
 import Link from "next/link";
 import Image from "next/image";
 import { Resend } from "resend";
-
+import emailjs from '@emailjs/browser';
 const EmailSection = () => {
   const [emailSubmitted, setEmailSubmitted] = useState(false);
 
@@ -18,30 +18,22 @@ const EmailSection = () => {
     };
 
     try {
-      await fetch("https://api.resend.com/emails", {
-        method: "POST",
-        mode: "no-cors", // 添加 no-cors 模式
-        headers: {
-          "Authorization": "Bearer re_GMgm68AB_44n3VMvKH7WpKXCg2uSddqCZ",
-          "Content-Type": "application/json",
+      const result = await emailjs.send(
+        "service_tq3dcz6", // 在 EmailJS 控制台获取
+        "template_ftrywfm", // 在 EmailJS 控制台获取
+        {
+          subject: subject,
+          email: email,
+          message: message,
         },
-        body: JSON.stringify({
-          from: "onboarding@resend.dev",
-          to: "21210816088@wzbc.edu.cn",
-          subject: e.target.subject.value,
-          html: `<p>From: ${e.target.email.value}</p><p>${e.target.message.value}</p>`,
-        }),
-      });
+        "Matn8su0hHcv4-C6U" // 在 EmailJS 控制台获取
+      );
 
-      // 直接设置提交状态
-      setEmailSubmitted(true);
-      console.log("邮件请求已发送");
+      if (result.status === 200) {
+        setEmailSubmitted(true);
+      }
     } catch (error) {
       console.error("发送失败:", error);
-    }
-    if (response.status === 200) {
-      console.log("Message sent.");
-      setEmailSubmitted(true);
     }
   };
 
