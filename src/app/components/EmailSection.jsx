@@ -114,7 +114,9 @@ const EmailSection = () => {
             </div>
             <button
               type="submit"
-              className="bg-primary-500 hover:bg-primary-600 text-white font-medium py-2.5 px-5 rounded-lg w-full"
+              disabled={isLoading}  // 添加 disabled 属性
+              className={`bg-primary-500 hover:bg-primary-600 text-white font-medium py-2.5 px-5 rounded-lg w-full
+                ${isLoading ? 'opacity-70 cursor-not-allowed' : ''}`}  // 添加禁用状态的样式
             >
               {isLoading ? (
                 <span className="inline-flex items-center">

@@ -341,34 +341,34 @@ const routeModule = new AppPageRouteModule({
 
 /***/ }),
 
-/***/ 2219:
+/***/ 7278:
 /***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
 
 Promise.resolve(/* import() eager */).then(__webpack_require__.t.bind(__webpack_require__, 1232, 23));
+Promise.resolve(/* import() eager */).then(__webpack_require__.t.bind(__webpack_require__, 2987, 23));
+Promise.resolve(/* import() eager */).then(__webpack_require__.t.bind(__webpack_require__, 831, 23));
 Promise.resolve(/* import() eager */).then(__webpack_require__.t.bind(__webpack_require__, 6926, 23));
 Promise.resolve(/* import() eager */).then(__webpack_require__.t.bind(__webpack_require__, 4282, 23));
-Promise.resolve(/* import() eager */).then(__webpack_require__.t.bind(__webpack_require__, 2987, 23));
-Promise.resolve(/* import() eager */).then(__webpack_require__.t.bind(__webpack_require__, 6505, 23));
-Promise.resolve(/* import() eager */).then(__webpack_require__.t.bind(__webpack_require__, 831, 23))
+Promise.resolve(/* import() eager */).then(__webpack_require__.t.bind(__webpack_require__, 6505, 23))
 
 /***/ }),
 
-/***/ 4626:
+/***/ 9673:
+/***/ (() => {
+
+
+
+/***/ }),
+
+/***/ 6856:
 /***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
 
 Promise.resolve(/* import() eager */).then(__webpack_require__.bind(__webpack_require__, 6255));
 Promise.resolve(/* import() eager */).then(__webpack_require__.bind(__webpack_require__, 9594));
 Promise.resolve(/* import() eager */).then(__webpack_require__.bind(__webpack_require__, 8624));
 Promise.resolve(/* import() eager */).then(__webpack_require__.bind(__webpack_require__, 5602));
-Promise.resolve(/* import() eager */).then(__webpack_require__.bind(__webpack_require__, 3934));
-Promise.resolve(/* import() eager */).then(__webpack_require__.bind(__webpack_require__, 1873))
-
-/***/ }),
-
-/***/ 1351:
-/***/ (() => {
-
-
+Promise.resolve(/* import() eager */).then(__webpack_require__.bind(__webpack_require__, 1873));
+Promise.resolve(/* import() eager */).then(__webpack_require__.bind(__webpack_require__, 3934))
 
 /***/ }),
 
@@ -717,8 +717,10 @@ var cjs = __webpack_require__(5699);
 
 const EmailSection = ()=>{
     const [emailSubmitted, setEmailSubmitted] = (0,react_.useState)(false);
+    const [isLoading, setIsLoading] = (0,react_.useState)(false); // 添加加载状态
     const handleSubmit = async (e)=>{
         e.preventDefault();
+        setIsLoading(true); // 开始加载
         const data = {
             email: e.target.email.value,
             subject: e.target.subject.value,
@@ -736,6 +738,8 @@ const EmailSection = ()=>{
             }
         } catch (error) {
             console.error("发送失败:", error);
+        } finally{
+            setIsLoading(false); // 结束加载
         }
     };
     return /*#__PURE__*/ (0,jsx_runtime_.jsxs)("section", {
@@ -830,8 +834,36 @@ const EmailSection = ()=>{
                         }),
                         /*#__PURE__*/ jsx_runtime_.jsx("button", {
                             type: "submit",
-                            className: "bg-primary-500 hover:bg-primary-600 text-white font-medium py-2.5 px-5 rounded-lg w-full",
-                            children: "发送邮件"
+                            disabled: isLoading,
+                            className: `bg-primary-500 hover:bg-primary-600 text-white font-medium py-2.5 px-5 rounded-lg w-full
+                ${isLoading ? "opacity-70 cursor-not-allowed" : ""}`,
+                            children: isLoading ? /*#__PURE__*/ (0,jsx_runtime_.jsxs)("span", {
+                                className: "inline-flex items-center",
+                                children: [
+                                    /*#__PURE__*/ (0,jsx_runtime_.jsxs)("svg", {
+                                        className: "w-5 h-5 mr-3 -ml-1 text-white animate-spin",
+                                        xmlns: "http://www.w3.org/2000/svg",
+                                        fill: "none",
+                                        viewBox: "0 0 24 24",
+                                        children: [
+                                            /*#__PURE__*/ jsx_runtime_.jsx("circle", {
+                                                className: "opacity-25",
+                                                cx: "12",
+                                                cy: "12",
+                                                r: "10",
+                                                stroke: "currentColor",
+                                                strokeWidth: "4"
+                                            }),
+                                            /*#__PURE__*/ jsx_runtime_.jsx("path", {
+                                                className: "opacity-75",
+                                                fill: "currentColor",
+                                                d: "M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                                            })
+                                        ]
+                                    }),
+                                    "发送中..."
+                                ]
+                            }) : "发送邮件"
                         })
                     ]
                 })
