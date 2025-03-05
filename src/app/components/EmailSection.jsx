@@ -4,6 +4,7 @@ import GithubIcon from "../../../public/github-icon.svg";
 import LinkedinIcon from "../../../public/linkedin-icon.svg";
 import Link from "next/link";
 import Image from "next/image";
+import { Resend } from "resend";
 
 const EmailSection = () => {
   const [emailSubmitted, setEmailSubmitted] = useState(false);
@@ -15,23 +16,13 @@ const EmailSection = () => {
       subject: e.target.subject.value,
       message: e.target.message.value,
     };
-    const JSONdata = JSON.stringify(data);
-    const endpoint = "/api/send";
-
-    // Form the request for sending data to the server.
-    const options = {
-      // The method is POST because we are sending data.
-      method: "POST",
-      // Tell the server we're sending JSON.
-      headers: {
-        "Content-Type": "application/json",
-      },
-      // Body of the request is the JSON data we created above.
-      body: JSONdata,
-    };
-
-    const response = await fetch(endpoint, options);
-    const resData = await response.json();
+    const resend = new Resend("re_GMgm68AB_44n3VMvKH7WpKXCg2uSddqCZ");
+    resend.emails.send({
+      from: "onboarding@resend.dev",
+      to: "21210816088@wzbc.edu.cn",
+      subject: "Hello World",
+      html: "<p>Congrats on sending your <strong>first email</strong>!</p>",
+    });
     console.log("Message sent.");
     setEmailSubmitted(true);
     if (response.status === 200) {
@@ -49,14 +40,13 @@ const EmailSection = () => {
       <div className="z-10">
         <h5 className="my-2 text-xl font-bold text-white">联系我</h5>
 
-          <p className="text-[#ADB7BE] mb-4 max-w-md">
-            我正在寻找新的机会，随时欢迎与我联系。无论您是有问题要咨询，还是想打个招呼，我都会尽快回复您！
-          </p>
+        <p className="text-[#ADB7BE] mb-4 max-w-md">
+          我正在寻找新的机会，随时欢迎与我联系。无论您是有问题要咨询，还是想打个招呼，我都会尽快回复您！
+        </p>
         <div className="flex flex-row gap-2 socials">
           <Link href="https://github.com/rn-consider">
             <Image src={GithubIcon} alt="Github Icon" />
           </Link>
- 
         </div>
       </div>
       <div>
