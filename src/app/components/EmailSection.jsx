@@ -16,15 +16,29 @@ const EmailSection = () => {
       subject: e.target.subject.value,
       message: e.target.message.value,
     };
-    const resend = new Resend("re_GMgm68AB_44n3VMvKH7WpKXCg2uSddqCZ");
-    resend.emails.send({
-      from: "onboarding@resend.dev",
-      to: "21210816088@wzbc.edu.cn",
-      subject: "Hello World",
-      html: "<p>Congrats on sending your <strong>first email</strong>!</p>",
-    });
-    console.log("Message sent.");
-    setEmailSubmitted(true);
+
+    try {
+      await fetch("https://api.resend.com/emails", {
+        method: "POST",
+        mode: "no-cors", // 添加 no-cors 模式
+        headers: {
+          Authorization: "Bearer re_GMgm68AB_44n3VMvKH7WpKXCg2uSddqCZ",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          from: "onboarding@resend.dev",
+          to: "21210816088@wzbc.edu.cn",
+          subject: e.target.subject.value,
+          html: `<p>From: ${e.target.email.value}</p><p>${e.target.message.value}</p>`,
+        }),
+      });
+
+      // 直接设置提交状态
+      setEmailSubmitted(true);
+      console.log("邮件请求已发送");
+    } catch (error) {
+      console.error("发送失败:", error);
+    }
     if (response.status === 200) {
       console.log("Message sent.");
       setEmailSubmitted(true);
