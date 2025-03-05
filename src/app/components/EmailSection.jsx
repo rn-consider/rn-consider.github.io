@@ -5,7 +5,7 @@ import LinkedinIcon from "../../../public/linkedin-icon.svg";
 import Link from "next/link";
 import Image from "next/image";
 import { Resend } from "resend";
-import emailjs from '@emailjs/browser';
+import emailjs from "@emailjs/browser";
 const EmailSection = () => {
   const [emailSubmitted, setEmailSubmitted] = useState(false);
 
@@ -22,9 +22,9 @@ const EmailSection = () => {
         "service_tq3dcz6", // 在 EmailJS 控制台获取
         "template_ftrywfm", // 在 EmailJS 控制台获取
         {
-          subject: subject,
-          email: email,
-          message: message,
+          email: e.target.email.value,
+          subject: e.target.subject.value,
+          message: e.target.message.value,
         },
         "Matn8su0hHcv4-C6U" // 在 EmailJS 控制台获取
       );
